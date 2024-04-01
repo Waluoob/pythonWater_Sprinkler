@@ -1,19 +1,14 @@
 import requests
-from bs4 import BeautifulSoup
+# creating a variable for city my sprinkler system is located in
+citydata = "Mesa, Arizona"
 
-URL = "https://www.accuweather.com/en/us/mesa/85203/current-weather/331799"
-page = requests.get(URL)
+# prints the city location
+print(citydata)
 
-soup = BeautifulSoup(page.content, "html.parser")
+# pass the City name onto the url
+url = 'https://wttr.in/{}'.format(citydata)
 
+# gathers local weather data of city
+res = requests.get(url)
 
-
-webWeather = soup.find("div", class_="card-content")
-
-for weatherInfo in webWeather:
-    displayTemp = weatherInfo.find("h2", class_="display-temp")
-    weatherPhrase = weatherInfo.find("h3", class_="phrase")
-    print(displayTemp)
-    print(weatherPhrase)
-
-    print()
+print(res.text)
